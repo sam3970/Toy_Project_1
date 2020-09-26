@@ -3,6 +3,7 @@
 # -*- coding:utf-8 -*-
 
 from selenium import webdriver
+import psutil
 
 backJoonCategoryUrl = "https://www.acmicpc.net/problem/tags";
 
@@ -27,17 +28,22 @@ categorys = browser.find_elements_by_css_selector('table.table.table-bordered.ta
 
 categoryNames = []
 for category in categorys:
-    categoryName = category.find_element_by_css_selector('td > a').text
+    #categoryName = category.find_element_by_css_selector('td > a').text
+    categoryName = category.find_element_by_css_selector('td > a').get_attribute('href')
     categoryNames.append(categoryName)
 
-print(categoryNames)
+#print(categoryNames)
 
+#Category Modifing...
 
-for categoryN in categoryNames:
-    browser.get('https://www.acmicpc.net/problem/tag/' + categoryN)
+for category_l in categoryNames:
+    browser.get(category_l)
+    #browser.get(category_l)
     trs = browser.find_elements_by_css_selector('table#problemset tbody tr')
 
+print(trs)
 
+'''
 for tr in trs:
         bj_num = tr.find_element_by_css_selector('td.list_problem_id').text
         title = tr.find_element_by_css_selector('td:nth-child(2)').text
@@ -46,3 +52,10 @@ for tr in trs:
         solveRate = tr.find_element_by_css_selector('td:nth-child(6)').text
         print("{0} {1} {2} {3} {4}".format(bj_num, title, solvers, submitCnt, solveRate))
 '''
+
+#chromedriver kill(require thread)
+#for process in psutil.process_iter():
+	#check whether process name matches
+#	if process.name() == PROCNAME :
+#		process.kill()
+
