@@ -4,6 +4,8 @@
 
 from selenium import webdriver
 import psutil
+import subprocess
+import string
 
 backJoonCategoryUrl = "https://www.acmicpc.net/problem/tags";
 
@@ -26,24 +28,30 @@ browser.get(backJoonCategoryUrl);
 # 카테고리 tr태그 한 줄 묶음으로 분류
 categorys = browser.find_elements_by_css_selector('table.table.table-bordered.table-striped tbody tr');
 
-categoryNames = []
+#categoryNames = []
+string categoryNames
 for category in categorys:
-    #categoryName = category.find_element_by_css_selector('td > a').text
-    categoryName = category.find_element_by_css_selector('td > a').get_attribute('href')
-    categoryNames.append(categoryName)
+		#categoryName = category.find_element_by_css_selector('td > a').text
+		categoryName = category.find_element_by_css_selector('td > a').get_attribute('href')
+		categoryNames.append(categoryName)
+		#categoryNames.substring(5, 15)
+		#print(name)
 
-#print(categoryNames)
+print(categoryNames)
 
+
+'''
 #Category Modifing...
 
 for category_l in categoryNames:
-    browser.get(category_l)
-    #browser.get(category_l)
-    trs = browser.find_elements_by_css_selector('table#problemset tbody tr')
+		#print(category_l);
+		tt = browser.get(category_l)
+		#print(tt)
+		#browser.get(category_l)
+		trs = browser.find_elements_by_css_selector('table#problemset tbody tr')
 
-print(trs)
 
-'''
+
 for tr in trs:
         bj_num = tr.find_element_by_css_selector('td.list_problem_id').text
         title = tr.find_element_by_css_selector('td:nth-child(2)').text
